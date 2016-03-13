@@ -3,6 +3,8 @@ services:
   elasticsearch:
     build: ./elasticsearch
     image: elk/elasticsearch
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
   logstash:
@@ -13,7 +15,7 @@ services:
       - "5000:5000"
       - "5514:5514"
     volumes:
-      - '/$HOME/Disks/wiamlogs:/var/import'
+      - '/$HOME/Disks/demologs:/var/import'
     links:
       - elasticsearch
   kibana:
@@ -23,3 +25,6 @@ services:
       - "5601:5601"
     links:
       - elasticsearch
+volumes:
+  elasticsearch-data:
+    driver: local
